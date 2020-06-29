@@ -1,0 +1,26 @@
+name: "CI"
+
+on:
+  push: {branches: master}
+  pull_request: {branches: master}
+  repository_dispatch:
+
+jobs:
+  job_1:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - run: npm install
+    - run: npm run build
+    - run: npm test
+    - name: Use joshstrange/setup-quasar
+      uses: ./
+    - name: Run quasar info
+      run: |
+        quasar info
+#        quasar create testapp blank --cordova --type angular --no-link --no-git --no-interactive --confirm
+#        cd testapp
+#        quasar cordova platform add android@latest
+#        quasar cordova build android
